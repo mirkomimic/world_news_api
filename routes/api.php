@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\api\DashboardController;
+use App\Http\Controllers\Api\NewsApiController;
+use App\Http\Controllers\Api\NewsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,5 +23,9 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
-  Route::post('/news', [DashboardController::class, 'news']);
+  Route::post('/newsapi', [NewsApiController::class, 'index']);
+
+  Route::resource('news', NewsController::class)->except(['create', 'edit']);
+
+  Route::resource('category', CategoryController::class)->only(['index']);
 });

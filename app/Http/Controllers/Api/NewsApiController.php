@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\api;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use jcobhams\NewsApi\NewsApi;
 use Illuminate\Support\Str;
 
-class DashboardController extends Controller
+class NewsApiController extends Controller
 {
   protected $newsapi;
 
@@ -16,7 +16,7 @@ class DashboardController extends Controller
     $this->newsapi = new NewsApi(env('NEWS_API_KEY'));
   }
 
-  public function news(Request $request)
+  public function index(Request $request)
   {
     $news = $this->newsapi->getTopHeadlines($request->q, $request->sources, $request->country, $request->category, $request->page_size, $request->page);
 
