@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\api\DashboardController;
 use App\Http\Controllers\Api\NewsApiController;
 use App\Http\Controllers\Api\NewsController;
+use App\Http\Controllers\Api\Payment\StripeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,3 +30,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
   Route::resource('category', CategoryController::class)->only(['index']);
 });
+
+Route::get('/payment_intent', [StripeController::class, 'listAllIntents']);
+Route::post('/payment_intent', [StripeController::class, 'createIntent']);
+Route::post('/payment_intent/retrieve', [StripeController::class, 'retrieveIntent']);
+Route::post('/payment_intent/confirm', [StripeController::class, 'confirmIntent']);
+Route::post('/payment_intent/cancel', [StripeController::class, 'cancelIntent']);
